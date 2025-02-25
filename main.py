@@ -35,15 +35,15 @@ def extract_timetable(html):
 
             # Reformat module code into simpler abbreviation
             parts = module.split("-")
-            if len(parts) >= 3:
-                module_code = parts[1]  # Extracts module code
-                session_type = parts[-2]  # Extracts 'L'
-                session_number = parts[-1]  # Extracts number
-                formatted_module = f"{module_code} ({session_type}{session_number})"
-            if len(parts) >= 4:
+            if len(parts) > 4:
                 module_code = parts[3]  # Extracts module code
                 session_type = parts[-2]  # Extracts "L" or "T"
                 session_number = parts[-1]  # Extracts the number
+                formatted_module = f"{module_code} ({session_type}{session_number})"
+            elif len(parts) >= 3:
+                module_code = parts[1]  # Extracts module code
+                session_type = parts[-2]  # Extracts "L" or "T"
+                session_number = parts[-1]  # Extracts number
                 formatted_module = f"{module_code} ({session_type}{session_number})"
             else:
                 formatted_module = module  # Uses original value in case format is different
