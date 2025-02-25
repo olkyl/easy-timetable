@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from collections import defaultdict
 
 def fetch_timetable(url):
-    """Fetches the timetable HTML from the given URL."""
+    # Fetches the timetable HTML from the given URL.
     try:
         response = requests.get(url)
         response.raise_for_status()  # Raise error if request fails
@@ -35,6 +35,11 @@ def extract_timetable(html):
 
             # Reformat module code into simpler abbreviation
             parts = module.split("-")
+            if len(parts) >= 3:
+                module_code = parts[1]  # Extracts module code
+                session_type = parts[-2]  # Extracts 'L'
+                session_number = parts[-1]  # Extracts number
+                formatted_module = f"{module_code} ({session_type}{session_number})"
             if len(parts) >= 4:
                 module_code = parts[3]  # Extracts module code
                 session_type = parts[-2]  # Extracts "L" or "T"
